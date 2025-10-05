@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../enums/workout_type.dart';
-import '../providers/workout_provider.dart';
+import '../providers/workout/workout_provider.dart';
 
 class WorkoutFormDialog extends HookConsumerWidget {
   const WorkoutFormDialog({super.key});

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../enums/workout_type.dart';
+import '../../enums/workout_type.dart';
 
 part 'workout.freezed.dart';
 part 'workout.g.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../providers/workout_provider.dart';
+import '../providers/workout/workout_provider.dart';
 
 class WorkoutCalendarGraph extends HookConsumerWidget {
   const WorkoutCalendarGraph({super.key});

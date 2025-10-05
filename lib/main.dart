@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'core/constants.dart';
 import 'screens/onboarding_screen.dart';
 import 'screens/workout_list_screen.dart';
-import 'providers/onboarding_provider.dart';
+import 'providers/onboarding/onboarding_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

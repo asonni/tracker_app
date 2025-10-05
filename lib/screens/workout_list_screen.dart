@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../enums/workout_type.dart';
-import '../providers/workout_provider.dart';
+import '../providers/quote/quote_provider.dart';
+import '../providers/workout/workout_provider.dart';
 import '../widgets/workout_form_dialog.dart';
 import '../widgets/workout_calendar_graph.dart';
 
@@ -19,17 +20,76 @@ class WorkoutListScreen extends StatelessWidget {
           child: Scaffold(
             appBar: AppBar(
               title: const SizedBox.shrink(),
-              toolbarHeight: 170,
-              flexibleSpace: const SafeArea(
+              toolbarHeight: 224,
+              flexibleSpace: SafeArea(
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                       bottom: 56.0,
                       left: 16.0,
                       right: 16.0,
                     ),
-                    child: WorkoutCalendarGraph(),
+                    child: Column(
+                      children: [
+                        Consumer(
+                          builder: (context, ref, child) {
+                            final quote = ref.watch(fetchQuoteProvider);
+                            ref.listen(fetchQuoteProvider, (previous, next) {
+                              next.maybeWhen(
+                                data: (data) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('"${data.quote}"')),
+                                  );
+                                },
+                                orElse: () {},
+                              );
+                            });
+                            return quote.map(
+                              data: (data) {
+                                return Column(
+                                  children: [
+                                    Text(
+                                      '"${data.value.quote}"',
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        // final _ = ref.refresh(
+                                        //   fetchQuoteProvider,
+                                        // );
+                                        ref.invalidate(fetchQuoteProvider);
+                                      },
+                                      child: const Text('Refresh Quote'),
+                                    ),
+                                  ],
+                                );
+                              },
+                              error: (error) {
+                                return Text(
+                                  'Failed to load quote',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.red,
+                                  ),
+                                );
+                              },
+                              loading: (_) {
+                                return const CircularProgressIndicator();
+                              },
+                            );
+                          },
+                        ),
+                        WorkoutCalendarGraph(),
+                      ],
+                    ),
                   ),
                 ),
               ),
