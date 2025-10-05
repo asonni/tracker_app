@@ -3,8 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/constants.dart';
+
+import 'screens/main_screen.dart';
+import 'screens/sign_in_screen.dart';
+import 'screens/sign_up_screen.dart';
 import 'screens/onboarding_screen.dart';
-import 'screens/workout_list_screen.dart';
+
+import 'providers/auth/auth_provider.dart';
 import 'providers/onboarding/onboarding_provider.dart';
 
 void main() async {
@@ -28,6 +33,8 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final hasSeenOnboarding = ref.read(hasSeenOnboardingProvider);
+    final user = ref.watch(authProvider);
+
     return MaterialApp(
       title: 'Fitness Tracker',
       theme: ThemeData(
@@ -60,10 +67,17 @@ class MyApp extends ConsumerWidget {
           backgroundColor: Colors.white,
           foregroundColor: Color(0xFF1A237E),
         ),
+        navigationBarTheme: NavigationBarThemeData(
+          indicatorColor: Colors.white.withValues(alpha: 0.1),
+          backgroundColor: const Color(0xFF1A237E),
+        ),
       ),
       home: hasSeenOnboarding
-          ? const WorkoutListScreen()
+          ? (user?.isAuthenticated == true
+                ? const MainScreen()
+                : const SignInScreen())
           : const OnboardingScreen(),
+      routes: {'/signup': (context) => const SignUpScreen()},
     );
   }
 }
