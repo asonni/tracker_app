@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../core/extensions/better_client.dart';
-import '../../models/quote/quote.dart';
+import '../../data/models/quote/quote.dart';
 
 part 'quote_provider.g.dart';
 

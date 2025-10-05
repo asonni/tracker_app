@@ -3,9 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../widgets/app_button.dart';
-import '../providers/auth/auth_provider.dart';
-import '../core/configs/router-configs/router_names.dart';
+import '../../widgets/app_button.dart';
+import '../../providers/auth/auth_provider.dart';
+import '../../core/configs/router-configs/router_names.dart';
 
 class SignInScreen extends HookConsumerWidget {
   const SignInScreen({super.key});

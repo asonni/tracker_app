@@ -3,7 +3,7 @@ import 'package:uuid/uuid.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../models/user/user.dart';
+import '../../data/models/user/user.dart';
 
 part 'auth_provider.g.dart';
 

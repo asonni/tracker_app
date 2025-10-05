@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../core/configs/router-configs/router_names.dart';
+import '../../core/configs/router-configs/router_names.dart';
 
 class SharedProfileScreen extends StatelessWidget {
   final Map<String, String> profileData;

@@ -7,10 +7,10 @@ import 'settings_screen.dart';
 import 'help_support_screen.dart';
 import 'notifications_screen.dart';
 
-import '../models/workout/workout.dart';
-import '../providers/auth/auth_provider.dart';
-import '../providers/workout/workout_provider.dart';
-import '../core/configs/router-configs/router_names.dart';
+import '../../data/models/workout/workout.dart';
+import '../../providers/auth/auth_provider.dart';
+import '../../providers/workout/workout_provider.dart';
+import '../../core/configs/router-configs/router_names.dart';
 
 class ProfileScreen extends HookConsumerWidget {
   const ProfileScreen({super.key});

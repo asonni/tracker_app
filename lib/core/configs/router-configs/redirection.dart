@@ -5,38 +5,34 @@ FutureOr<String?> handleRedirect(
   GoRouterState state,
   Ref ref,
 ) {
-  final publicRoutes =
-      state.matchedLocation == RouteNames.signIn ||
-      state.matchedLocation == RouteNames.signUp ||
-      state.matchedLocation == RouteNames.onboarding;
+  final isSignin = state.matchedLocation == "/sign-in";
+  final isSignup = state.matchedLocation == "/sign-up";
+  final isOnboarding = state.matchedLocation == "/onboarding";
 
-  if (publicRoutes) {
+  if (isSignup || isSignin || isOnboarding) {
     return null;
   }
 
   // check if the user has seen the onboarding screen
   final hasSeenOnboarding = _hasSeenOnboarding(ref);
-
   if (!hasSeenOnboarding) {
-    return RouteNames.onboarding;
+    return "/onboarding";
   }
-
   // check if the user is logged in or not
   final isAuthenticated = _isAuthenticated(ref);
-
   if (!isAuthenticated) {
-    return RouteNames.signIn;
+    return "/sign-in";
   }
 
   return null;
 }
 
-bool _isAuthenticated(Ref ref) {
-  final user = ref.read(authProvider);
-  return user?.isAuthenticated == true;
+bool _hasSeenOnboarding(Ref ref) {
+  final hasSeenOnboarding = ref.watch(hasSeenOnboardingProvider);
+  return hasSeenOnboarding;
 }
 
-bool _hasSeenOnboarding(Ref ref) {
-  final hasSeenOnboarding = ref.read(hasSeenOnboardingProvider);
-  return hasSeenOnboarding;
+bool _isAuthenticated(Ref ref) {
+  final user = ref.watch(authProvider);
+  return user?.isAuthenticated == true;
 }
