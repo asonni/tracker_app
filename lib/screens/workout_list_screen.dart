@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'sign_in_screen.dart';
-
 import '../enums/workout_type.dart';
+import '../core/configs/router-configs/router_names.dart';
 
 import '../widgets/workout_form_dialog.dart';
 import '../widgets/workout_calendar_graph.dart';
@@ -19,11 +19,10 @@ class WorkoutListScreen extends StatelessWidget {
   Future<void> _signOut(BuildContext context) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isAuthenticated', false);
-    if (context.mounted) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const SignInScreen()),
-      );
+    if (!context.mounted) {
+      return;
     }
+    context.goNamed(RouteNames.signIn);
   }
 
   @override
@@ -51,16 +50,16 @@ class WorkoutListScreen extends StatelessWidget {
                         Consumer(
                           builder: (context, ref, child) {
                             final quote = ref.watch(fetchQuoteProvider);
-                            ref.listen(fetchQuoteProvider, (previous, next) {
-                              next.maybeWhen(
-                                data: (data) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('"${data.quote}"')),
-                                  );
-                                },
-                                orElse: () {},
-                              );
-                            });
+                            // ref.listen(fetchQuoteProvider, (previous, next) {
+                            //   next.maybeWhen(
+                            //     data: (data) {
+                            //       ScaffoldMessenger.of(context).showSnackBar(
+                            //         SnackBar(content: Text('"${data.quote}"')),
+                            //       );
+                            //     },
+                            //     orElse: () {},
+                            //   );
+                            // });
                             return quote.map(
                               data: (data) {
                                 return Column(

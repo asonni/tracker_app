@@ -24,9 +24,10 @@ class EditProfileScreen extends HookConsumerWidget {
         await ref
             .read(authProvider.notifier)
             .updateProfile(name: nameController.text, bio: bioController.text);
-        if (context.mounted) {
-          Navigator.pop(context);
+        if (!context.mounted) {
+          return;
         }
+        Navigator.pop(context);
       } finally {
         isLoading.value = false;
       }

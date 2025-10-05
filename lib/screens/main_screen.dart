@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'workout_list_screen.dart';
-import 'profile_screen.dart';
+import 'package:go_router/go_router.dart';
 
 class MainScreen extends HookWidget {
-  const MainScreen({super.key});
+  final StatefulNavigationShell navigationShell;
+
+  const MainScreen({super.key, required this.navigationShell});
+
+  void onTabTapped(int index) {
+    navigationShell.goBranch(index);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final selectedIndex = useState(0);
-
-    final screens = useMemoized(
-      () => [const WorkoutListScreen(), const ProfileScreen()],
-    );
+    final selectedIndex = navigationShell.currentIndex;
 
     return Scaffold(
-      body: screens[selectedIndex.value],
+      body: navigationShell,
       bottomNavigationBar: NavigationBar(
-        selectedIndex: selectedIndex.value,
-        onDestinationSelected: (index) {
-          selectedIndex.value = index;
-        },
+        selectedIndex: selectedIndex,
+        onDestinationSelected: onTabTapped,
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.home_outlined),

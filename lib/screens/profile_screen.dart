@@ -1,27 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:share_plus/share_plus.dart';
 
-import 'sign_in_screen.dart';
 import 'settings_screen.dart';
-import 'edit_profile_screen.dart';
-import 'notifications_screen.dart';
 import 'help_support_screen.dart';
+import 'notifications_screen.dart';
 
 import '../models/workout/workout.dart';
 import '../providers/auth/auth_provider.dart';
 import '../providers/workout/workout_provider.dart';
+import '../core/configs/router-configs/router_names.dart';
 
 class ProfileScreen extends HookConsumerWidget {
   const ProfileScreen({super.key});
 
   Future<void> _signOut(BuildContext context, WidgetRef ref) async {
     await ref.read(authProvider.notifier).signOut();
-    if (context.mounted) {
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const SignInScreen()),
-        (route) => false,
-      );
+    if (!context.mounted) {
+      return;
     }
+    context.goNamed(RouteNames.signIn);
+  }
+
+  void _shareProfile(BuildContext context, WidgetRef ref) {
+    final user = ref.read(authProvider);
+    final workouts = ref.read(workoutProvider);
+
+    if (user == null) return;
+
+    final completedWorkouts = workouts
+        .where((workout) => workout.isCompleted)
+        .length;
+    final inProgressWorkouts = workouts
+        .where((workout) => !workout.isCompleted)
+        .length;
+
+    final uri = Uri(
+      scheme: 'https',
+      host: 'fitness-tracker-web-m7ia.vercel.app',
+      path: '/shared/profile',
+      queryParameters: {
+        'name': user.name,
+        'bio': user.bio ?? '',
+        'totalWorkouts': workouts.length.toString(),
+        'completed': completedWorkouts.toString(),
+        'inProgress': inProgressWorkouts.toString(),
+      },
+    );
+
+    SharePlus.instance.share(
+      ShareParams(text: 'Check out my fitness profile: ${uri.toString()}'),
+    );
   }
 
   @override
@@ -33,10 +63,16 @@ class ProfileScreen extends HookConsumerWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          const SliverAppBar(
+          SliverAppBar(
             floating: true,
             pinned: true,
-            title: Text('Profile'),
+            title: const Text('Profile'),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.share),
+                onPressed: () => _shareProfile(context, ref),
+              ),
+            ],
           ),
           SliverToBoxAdapter(
             child: Column(
@@ -95,12 +131,7 @@ class ProfileScreen extends HookConsumerWidget {
                         icon: Icons.person_outline,
                         title: 'Edit Profile',
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const EditProfileScreen(),
-                            ),
-                          );
+                          Navigator.pushNamed(context, '/edit-profile');
                         },
                       ),
                       _ProfileMenuItem(

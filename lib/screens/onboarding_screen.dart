@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
 import '../core/constants.dart';
-import 'workout_list_screen.dart';
+import '../core/configs/router-configs/router_names.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -38,9 +39,10 @@ class OnboardingScreen extends StatelessWidget {
 
   void _onDone(BuildContext context) async {
     await _changeOnboardingInitialStatus();
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => const WorkoutListScreen()),
-    );
+    if (!context.mounted) {
+      return;
+    }
+    context.goNamed(RouteNames.signIn);
   }
 
   Future<void> _changeOnboardingInitialStatus() async {

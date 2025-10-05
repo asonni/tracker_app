@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'core/configs/router-configs/router.dart';
 import 'core/constants.dart';
 
-import 'screens/main_screen.dart';
-import 'screens/sign_in_screen.dart';
-import 'screens/sign_up_screen.dart';
-import 'screens/onboarding_screen.dart';
+// import 'screens/main_screen.dart';
+// import 'screens/sign_in_screen.dart';
+// import 'screens/sign_up_screen.dart';
+// import 'screens/onboarding_screen.dart';
 
-import 'providers/auth/auth_provider.dart';
+// import 'providers/auth/auth_provider.dart';
 import 'providers/onboarding/onboarding_provider.dart';
 
 void main() async {
@@ -32,11 +33,13 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final hasSeenOnboarding = ref.read(hasSeenOnboardingProvider);
-    final user = ref.watch(authProvider);
+    // final hasSeenOnboarding = ref.read(hasSeenOnboardingProvider);
+    // final user = ref.watch(authProvider);
+    final router = ref.watch(routeProvider);
 
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Fitness Tracker',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
@@ -72,12 +75,14 @@ class MyApp extends ConsumerWidget {
           backgroundColor: const Color(0xFF1A237E),
         ),
       ),
-      home: hasSeenOnboarding
-          ? (user?.isAuthenticated == true
-                ? const MainScreen()
-                : const SignInScreen())
-          : const OnboardingScreen(),
-      routes: {'/signup': (context) => const SignUpScreen()},
+      routerDelegate: router.routerDelegate,
+      routeInformationParser: router.routeInformationParser,
+      routeInformationProvider: router.routeInformationProvider,
+      // home: hasSeenOnboarding
+      //     ? (user?.isAuthenticated == true
+      //           ? const MainScreen()
+      //           : const SignInScreen())
+      //     : const OnboardingScreen(),
     );
   }
 }

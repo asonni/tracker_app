@@ -6,9 +6,7 @@ class HelpSupportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Help & Support'),
-      ),
+      appBar: AppBar(title: const Text('Help & Support')),
       body: ListView(
         children: [
           const _SupportSection(
@@ -83,10 +81,7 @@ class _SupportSection extends StatelessWidget {
   final String title;
   final List<Widget> children;
 
-  const _SupportSection({
-    required this.title,
-    required this.children,
-  });
+  const _SupportSection({required this.title, required this.children});
 
   @override
   Widget build(BuildContext context) {
@@ -98,8 +93,8 @@ class _SupportSection extends StatelessWidget {
           child: Text(
             title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
         ),
         ...children,
@@ -112,10 +107,7 @@ class _ExpandableFAQ extends StatelessWidget {
   final String question;
   final String answer;
 
-  const _ExpandableFAQ({
-    required this.question,
-    required this.answer,
-  });
+  const _ExpandableFAQ({required this.question, required this.answer});
 
   @override
   Widget build(BuildContext context) {
@@ -127,8 +119,8 @@ class _ExpandableFAQ extends StatelessWidget {
           child: Text(
             answer,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
+              color: Theme.of(context).colorScheme.secondary,
+            ),
           ),
         ),
       ],
