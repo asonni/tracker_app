@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'quote_data_source.dart';
@@ -12,16 +12,19 @@ class RemoteQuoteDataSource implements QuoteDataSource {
 
   @override
   Future<QuoteModel> getRandomQuote() async {
-    final client = await ref.getBetterClient();
-    final response = await client.get(
-      Uri.parse('https://quotes-api-self.vercel.app/quote'),
+    final dio = await ref.getBetterClient();
+    final response = await dio.get<Map<String, dynamic>>(
+      'https://quotes-api-self.vercel.app/quote',
+      options: Options(responseType: ResponseType.json),
     );
 
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body) as Map<String, dynamic>;
+    final data = response.data;
+    if (response.statusCode == 200 && data != null) {
       return QuoteModel.fromJson(data);
     } else {
-      throw Exception('Failed to load quote');
+      throw Exception(
+        'Failed to load quote: ${response.statusMessage ?? 'Unknown error'}',
+      );
     }
   }
 }

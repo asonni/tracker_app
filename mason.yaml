@@ -1,0 +1,5 @@
+bricks:
+  error_handler:
+    path: bricks/error_handler
+  screen:
+    path: bricks/screen
