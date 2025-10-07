@@ -1,0 +1,30 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "fitness-tracker-app-ccf08",
+          "appId": "1:766599671539:android:d164db2cbd59da88ec5186",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "fitness-tracker-app-ccf08",
+          "appId": "1:766599671539:ios:fca8ce11a5fe85e8ec5186",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "fitness-tracker-app-ccf08",
+          "configurations": {
+            "android": "1:766599671539:android:d164db2cbd59da88ec5186",
+            "ios": "1:766599671539:ios:fca8ce11a5fe85e8ec5186"
+          }
+        }
+      }
+    }
+  }
+}
