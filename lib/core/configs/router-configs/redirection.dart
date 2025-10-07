@@ -4,7 +4,7 @@ FutureOr<String?> handleRedirect(
   BuildContext context,
   GoRouterState state,
   Ref ref,
-) {
+) async {
   final isSignin = state.matchedLocation == RouteNames.signIn;
   final isSignup = state.matchedLocation == RouteNames.signUp;
   final isSplashScreen = state.matchedLocation == RouteNames.splash;
@@ -15,10 +15,11 @@ FutureOr<String?> handleRedirect(
   }
 
   // check if the user has seen the onboarding screen
-  final hasSeenOnboarding = _hasSeenOnboarding(ref);
+  final hasSeenOnboarding = await _hasSeenOnboarding();
   if (!hasSeenOnboarding) {
     return RouteNames.onboarding;
   }
+
   // check if the user is logged in or not
   final isAuthenticated = _isAuthenticated(ref);
   if (!isAuthenticated) {
@@ -28,9 +29,9 @@ FutureOr<String?> handleRedirect(
   return null;
 }
 
-bool _hasSeenOnboarding(Ref ref) {
-  final hasSeenOnboarding = ref.read(hasSeenOnboardingProvider);
-  return hasSeenOnboarding;
+Future<bool> _hasSeenOnboarding() async {
+  final sh = await SharedPreferences.getInstance();
+  return sh.getBool(hasOnboardingInitialized) ?? false;
 }
 
 bool _isAuthenticated(Ref ref) {

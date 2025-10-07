@@ -1,12 +1,13 @@
 import 'dart:convert';
 
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../../core/constants/constants.dart';
-import '../data/models/quote_model.dart';
 import '../domain/entities/quote.dart';
+import '../data/models/quote_model.dart';
 import '../domain/repositories/quote_repo.dart';
+import '../../../../core/constants/constants.dart';
+
 part 'quote_service.g.dart';
 
 @Riverpod(keepAlive: true)

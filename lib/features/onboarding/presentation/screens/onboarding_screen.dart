@@ -39,10 +39,9 @@ class OnboardingScreen extends StatelessWidget {
 
   void _onDone(BuildContext context) async {
     await _changeOnboardingInitialStatus();
-    if (!context.mounted) {
-      return;
+    if (context.mounted) {
+      context.goNamed(RouteNames.workoutList);
     }
-    context.goNamed(RouteNames.workoutList);
   }
 
   Future<void> _changeOnboardingInitialStatus() async {

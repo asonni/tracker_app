@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/enums/workout_type.dart';
 import 'components/workout_components.dart';
+import '../../../../../core/enums/workout_type.dart';
 
 class WorkoutListScreen extends StatelessWidget {
   const WorkoutListScreen({super.key});

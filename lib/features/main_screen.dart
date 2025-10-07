@@ -4,7 +4,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 class MainScreen extends HookWidget {
   const MainScreen({super.key, required this.navigationShell});
+
   final StatefulNavigationShell navigationShell;
+
   void onTabTapped(int index) {
     navigationShell.goBranch(index);
   }

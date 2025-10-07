@@ -1,10 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../data/data-source/workout_data_source.dart';
 import '../../data/models/workout.dart';
 import '../../data/repo/workout_repo_impl.dart';
-// import '../../../data/workout/data-source/workout_data_source.dart';
+import '../../data/data-source/workout_data_source.dart';
 
 part 'workout_repo.g.dart';
 

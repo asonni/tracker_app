@@ -2,8 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'route_names.dart';
+import '../../constants/constants.dart';
 import '../../../features/main_screen.dart';
 import '../../../features/splash_screen.dart';
 import '../../../features/auth/presentation/screens/sign_in_screen.dart';
@@ -12,7 +14,6 @@ import '../../../features/auth/presentation/controller/auth/auth_provider.dart';
 import '../../../features/auth/presentation/screens/profile/profile_screen.dart';
 import '../../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../../features/auth/presentation/controller/auth/state/auth_state.dart';
-import '../../../features/onboarding/presentation/controllers/onboarding/onboarding_provider.dart';
 import '../../../features/workout/presentation/screens/workout-list-screen/workout_list_screen.dart';
 
 part 'redirection.dart';

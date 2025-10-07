@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../entities/quote.dart';
-import '../../data/data-source/quote_data_source.dart';
 import '../../data/repo/quote_repo_impl.dart';
+import '../../data/data-source/quote_data_source.dart';
 
 part 'quote_repo.g.dart';
 

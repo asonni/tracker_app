@@ -2,8 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/entities/quote.dart';
 
-part 'quote_model.freezed.dart';
 part 'quote_model.g.dart';
+part 'quote_model.freezed.dart';
 
 @freezed
 abstract class QuoteModel with _$QuoteModel implements Quote {

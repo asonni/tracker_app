@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
-import '../data-source/quote_data_source.dart';
 import '../../domain/entities/quote.dart';
+import '../data-source/quote_data_source.dart';
 import '../../domain/repositories/quote_repo.dart';
 import '../../../../core/handlers/error-handler/error_handler.dart';
 

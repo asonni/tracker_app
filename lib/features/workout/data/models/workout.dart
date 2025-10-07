@@ -2,8 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../core/enums/workout_type.dart';
 
-part 'workout.freezed.dart';
 part 'workout.g.dart';
+part 'workout.freezed.dart';
 
 @freezed
 abstract class Workout with _$Workout {

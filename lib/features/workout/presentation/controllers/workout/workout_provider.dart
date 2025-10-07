@@ -1,8 +1,8 @@
 import 'package:uuid/uuid.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../../../core/enums/workout_type.dart';
 import '../../../data/models/workout.dart';
+import '../../../../../core/enums/workout_type.dart';
 import '../../../domain/repositories/workout_repo.dart';
 
 part 'workout_provider.g.dart';

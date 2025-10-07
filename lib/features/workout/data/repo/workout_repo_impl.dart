@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 
 import '../models/workout.dart';
 import '../data-source/workout_data_source.dart';
-import '../../../../core/handlers/error-handler/error_handler.dart';
 import '../../domain/repositories/workout_repo.dart';
+import '../../../../core/handlers/error-handler/error_handler.dart';
 
 class WorkoutRepoImpl implements WorkoutRepo {
   final WorkoutDataSource workoutDataSource;
