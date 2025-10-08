@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/configs/router-configs/router.dart';
+import 'main_common.dart';
 
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
@@ -9,8 +10,9 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routeProvider);
+    final flavorConfig = ref.watch(flavorConfigProvider);
     return MaterialApp.router(
-      title: 'Fitness Tracker',
+      title: flavorConfig.title,
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
