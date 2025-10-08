@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../controllers/workout/workout_provider.dart';
+import '../../../../data/models/workout.dart';
 
 class WorkoutCalendarGraph extends HookConsumerWidget {
   const WorkoutCalendarGraph({super.key});
@@ -22,9 +23,13 @@ class WorkoutCalendarGraph extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final workouts = ref.watch(workoutProvider);
+    final workoutsAsync = ref.watch(workoutProvider);
+    final workouts = workoutsAsync.maybeWhen<List<Workout>>(
+      orElse: () => [],
+      data: (d) => d,
+    );
     final startDate = useMemoized(() {
-      final initialWorkout = workouts.firstOrNull;
+      final initialWorkout = workouts.isEmpty ? null : workouts.first;
       if (initialWorkout == null) {
         return DateTime.now();
       }

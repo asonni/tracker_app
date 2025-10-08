@@ -8,6 +8,7 @@ import 'components/profile_components.dart';
 import '../edit-profile-screen/edit_profile_screen.dart';
 import '../../../../../core/extensions/user_ref_extension.dart';
 import '../../../../workout/presentation/controllers/workout/workout_provider.dart';
+import '../../../../workout/data/models/workout.dart';
 
 class ProfileScreen extends HookConsumerWidget {
   const ProfileScreen({super.key});
@@ -15,7 +16,11 @@ class ProfileScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final workouts = ref.watch(workoutProvider);
+    final workoutsAsync = ref.watch(workoutProvider);
+    final workouts = workoutsAsync.maybeWhen<List<Workout>>(
+      orElse: () => [],
+      data: (d) => d,
+    );
     final user = ref.watchCurrentUser;
 
     return Scaffold(
