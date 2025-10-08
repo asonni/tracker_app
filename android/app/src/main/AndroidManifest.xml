@@ -2,8 +2,8 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="tracker_app"
-        android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:name="FitnessTracker"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"
