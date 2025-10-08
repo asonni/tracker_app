@@ -59,6 +59,20 @@ android {
             signingConfig = signingConfigs.getByName("release")
         }
     }
+
+    flavorDimensions += "default"
+    productFlavors {
+        create("production") {
+            dimension = "default"
+            resValue(type = "string", name = "app_name", value = "Fitness Tracker")
+        }
+        create("staging") {
+            dimension = "default"
+            resValue(type = "string", name = "app_name", value = "[DEV] Fitness Tracker")
+            applicationIdSuffix = ".staging"
+            versionNameSuffix = "-staging"
+        }
+    }
 }
 
 flutter {
