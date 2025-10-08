@@ -34,7 +34,7 @@ class FirebaseErrorHandler implements BaseErrorHandler {
     }
   }
 
-  _handleFirebaseException(FirebaseException error) {
+  String _handleFirebaseException(FirebaseException error) {
     switch (error.code) {
       case 'permission-denied':
         return 'Permission denied';

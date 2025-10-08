@@ -13,7 +13,7 @@ part of 'workout_provider.dart';
 const workoutProvider = WorkoutNotifierProvider._();
 
 final class WorkoutNotifierProvider
-    extends $NotifierProvider<WorkoutNotifier, AsyncValue<List<Workout>>> {
+    extends $NotifierProvider<WorkoutNotifier, List<Workout>> {
   const WorkoutNotifierProvider._()
     : super(
         from: null,
@@ -33,29 +33,28 @@ final class WorkoutNotifierProvider
   WorkoutNotifier create() => WorkoutNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(AsyncValue<List<Workout>> value) {
+  Override overrideWithValue(List<Workout> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<AsyncValue<List<Workout>>>(value),
+      providerOverride: $SyncValueProvider<List<Workout>>(value),
     );
   }
 }
 
-String _$workoutNotifierHash() => r'9ae97146c0dd5dca03a614d2d0600d22a7f32857';
+String _$workoutNotifierHash() => r'6affb9f3410c165b4659ec33952f42b2331456a9';
 
-abstract class _$WorkoutNotifier extends $Notifier<AsyncValue<List<Workout>>> {
-  AsyncValue<List<Workout>> build();
+abstract class _$WorkoutNotifier extends $Notifier<List<Workout>> {
+  List<Workout> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref =
-        this.ref as $Ref<AsyncValue<List<Workout>>, AsyncValue<List<Workout>>>;
+    final ref = this.ref as $Ref<List<Workout>, List<Workout>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AsyncValue<List<Workout>>, AsyncValue<List<Workout>>>,
-              AsyncValue<List<Workout>>,
+              AnyNotifier<List<Workout>, List<Workout>>,
+              List<Workout>,
               Object?,
               Object?
             >;

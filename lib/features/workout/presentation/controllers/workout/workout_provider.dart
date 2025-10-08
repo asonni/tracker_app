@@ -9,26 +9,18 @@ part 'workout_provider.g.dart';
 
 @riverpod
 class WorkoutNotifier extends _$WorkoutNotifier {
-  bool get isLoading => state is AsyncLoading;
-
   @override
-  AsyncValue<List<Workout>> build() {
+  List<Workout> build() {
     _loadWorkouts();
-    return const AsyncLoading();
+    return [];
   }
 
   Future<void> _loadWorkouts() async {
-    state = const AsyncLoading();
     final result = await ref.read(workoutRepositoryProvider).getWorkouts();
     result.fold(
       (error) => throw Exception(error),
-      (workouts) => state = AsyncData(workouts),
+      (workouts) => state = workouts,
     );
-  }
-
-  /// Public method to refresh workouts (used by UI pull-to-refresh)
-  Future<void> refresh() async {
-    await _loadWorkouts();
   }
 
   Future<void> addWorkout(
@@ -54,7 +46,7 @@ class WorkoutNotifier extends _$WorkoutNotifier {
         .addWorkout(workout);
     result.fold(
       (error) => throw Exception(error),
-      (_) => state = state.whenData((workouts) => [...workouts, workout]),
+      (_) => state = [...state, workout],
     );
   }
 
@@ -63,20 +55,18 @@ class WorkoutNotifier extends _$WorkoutNotifier {
       isCompleted: !workout.isCompleted,
       completedAt: workout.isCompleted ? null : DateTime.now(),
     );
-    // optimistic update of the workout in the state
-    state = state.whenData(
-      (workouts) => workouts
-          .map((w) => w.id == updatedWorkout.id ? updatedWorkout : w)
-          .toList(),
-    );
+    // update the workout in the state
+    state = state
+        .map((w) => w.id == updatedWorkout.id ? updatedWorkout : w)
+        .toList();
     await ref.read(workoutRepositoryProvider).updateWorkout(updatedWorkout);
+    _loadWorkouts();
   }
 
   Future<void> deleteWorkout(String id) async {
-    /// optimistic remove from state first
-    state = state.whenData(
-      (workouts) => workouts.where((w) => w.id != id).toList(),
-    );
+    /// remove from state first
+    state = state.where((w) => w.id != id).toList();
     await ref.read(workoutRepositoryProvider).deleteWorkout(id);
+    _loadWorkouts();
   }
 }
